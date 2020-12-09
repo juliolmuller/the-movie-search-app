@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+
 module.exports = {
   root: true,
   env: {
@@ -8,7 +10,7 @@ module.exports = {
     '@lacussoft/standard',
   ],
   globals: {
-    module: true,
+    console: true,
   },
   parser: 'babel-eslint',
   parserOptions: {
@@ -24,6 +26,7 @@ module.exports = {
     'import',
   ],
   rules: {
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-use-before-define': 'off',
     'react/jsx-indent-props': ['error', 2],
     'react/jsx-closing-bracket-location': 'error',
