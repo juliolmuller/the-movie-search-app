@@ -1,15 +1,17 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-const MovieCard = ({ task, done }) => (
+import { StyleSheet, Text, TouchableOpacity } from 'react-native'
+
+const MovieCard = ({ title }) => (
   <TouchableOpacity
-    style={[styles.todo, task.completed ? styles.completed : styles.pending]}
-    onPress={() => done(task.id)}
+    style={[styles.todo, styles.pending]}
+    onPress={console.log}
   >
-    <Text style={[styles.label, task.completed ? styles.completed : styles.pending]}>
-      {task.label}
+    <Text style={[styles.label, styles.pending]}>
+      {title}
     </Text>
   </TouchableOpacity>
 )
+
 const styles = StyleSheet.create({
   todo: {
     flex: 1,
@@ -33,4 +35,5 @@ const styles = StyleSheet.create({
     color: '#000',
   },
 })
+
 export default MovieCard
