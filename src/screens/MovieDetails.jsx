@@ -1,34 +1,36 @@
-import React, { useState } from 'react';
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import ToDoItem from '../components/ToDoItem';
+import React, { useState } from 'react'
+import {
+  ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View,
+} from 'react-native'
+import MovieCard from '../components/MovieCard'
 
-const ToDo = () => {
-  const [newTask, setNewTask] = useState('');
-  const [tasks, setTasks] = useState([]);
+const MovieDetails = () => {
+  const [newTask, setNewTask] = useState('')
+  const [tasks, setTasks] = useState([])
 
   const sortedTasks = [
     ...tasks.filter((task) => !task.completed),
     ...tasks.filter((task) => task.completed),
-  ];
+  ]
 
   const handleCreateTask = () => {
     if (newTask) {
-      setNewTask('');
+      setNewTask('')
       setTasks([...tasks, {
         id: Math.floor(Math.random() * 1000000),
         label: newTask,
         completed: false,
-      }]);
+      }])
     }
-  };
+  }
 
   const handleTaskToggle = (id) => {
     setTasks((currTasks) => (
       currTasks.map((task) => (task.id === id
         ? ({ ...task, completed: !task.completed })
         : task))
-    ));
-  };
+    ))
+  }
 
   return (
     <View style={styles.wrapper}>
@@ -45,11 +47,11 @@ const ToDo = () => {
         </TouchableOpacity>
       </View>
       <ScrollView contentContainerStyle={{ padding: 16 }}>
-        {sortedTasks.map((task) => <ToDoItem key={task.id} task={task} done={handleTaskToggle} />)}
+        {sortedTasks.map((task) => <MovieCard key={task.id} task={task} done={handleTaskToggle} />)}
       </ScrollView>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   wrapper: {},
@@ -84,6 +86,6 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 20,
   },
-});
+})
 
-export default ToDo;
+export default MovieDetails

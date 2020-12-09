@@ -1,7 +1,6 @@
-import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-
-const ToDoItem = ({ task, done }) => (
+import React from 'react'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+const MovieCard = ({ task, done }) => (
   <TouchableOpacity
     style={[styles.todo, task.completed ? styles.completed : styles.pending]}
     onPress={() => done(task.id)}
@@ -10,8 +9,7 @@ const ToDoItem = ({ task, done }) => (
       {task.label}
     </Text>
   </TouchableOpacity>
-);
-
+)
 const styles = StyleSheet.create({
   todo: {
     flex: 1,
@@ -34,6 +32,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffde03',
     color: '#000',
   },
-});
-
-export default ToDoItem;
+})
+export default MovieCard

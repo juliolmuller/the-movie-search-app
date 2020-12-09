@@ -1,46 +1,47 @@
-import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { RectButton } from 'react-native-gesture-handler';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react'
+import { ScrollView, StyleSheet, View } from 'react-native'
+import { TextInput } from 'react-native-gesture-handler'
+import { Feather as Icon } from '@expo/vector-icons'
+import MovieCard from '../components/MovieCard'
 
 const Home = () => {
-  const { navigate } = useNavigation();
-  const links = [
-    { key: 1, label: 'Lista de Tarefas', view: 'ToDo' },
-  ];
+  const [searchText, setSearchText] = useState('')
+  const [movies] = useState([])
 
   return (
-    <ScrollView contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 32 }}>
-      <View style={styles.wrapper}>
-        {links.map(({ key, label, view }) => (
-          <RectButton key={key} style={styles.navigation} onPress={() => navigate(view)}>
-            <Text style={styles.navigationText}>{label}</Text>
-          </RectButton>
-        ))}
+    <>
+      <View style={styles.searchForm}>
+        <Icon name="search" size={20} />
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search..."
+          value={searchText}
+          onTextInput={setSearchText}
+        />
       </View>
-    </ScrollView>
-  );
-};
+      <ScrollView contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 32 }}>
+        {movies.map((movie) => (
+          <MovieCard key="movie.id" {...movie} />
+        ))}
+      </ScrollView>
+    </>
+  )
+}
 
 const styles = StyleSheet.create({
-  wrapper: {
+  searchForm: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#ccc',
+    borderRadius: 12,
+    padding: 8,
+    margin: 10,
+  },
+  searchInput: {
     flexGrow: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  navigation: {
-    width: '100%',
-    height: 72,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#6200ee',
-    marginBottom: 16,
-    borderRadius: 8,
-  },
-  navigationText: {
-    color: '#fff',
     fontSize: 20,
+    marginLeft: 8,
   },
-});
+})
 
-export default Home;
+export default Home

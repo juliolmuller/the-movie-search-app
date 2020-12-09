@@ -25,6 +25,8 @@ module.exports = {
   ],
   rules: {
     'no-use-before-define': 'off',
+    'react/jsx-indent-props': ['error', 2],
+    'react/jsx-closing-bracket-location': 'error',
     'react/prop-types': 'off',
   },
 }
