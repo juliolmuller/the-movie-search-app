@@ -1,38 +1,24 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 
 const MovieCard = ({ title }) => (
-  <TouchableOpacity
-    style={[styles.todo, styles.pending]}
-    onPress={console.log}
-  >
-    <Text style={[styles.label, styles.pending]}>
+  <View style={styles.card}>
+    <Text style={styles.title}>
       {title}
     </Text>
-  </TouchableOpacity>
+  </View>
 )
 
 const styles = StyleSheet.create({
-  todo: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 8,
-    padding: 10,
-    marginBottom: 12,
+  card: {
+    flexDirection: 'row',
+    backgroundColor: '#111',
+    marginBottom: 10,
+    padding: 4,
   },
-  label: {
-    fontSize: 20,
-  },
-  completed: {
-    backgroundColor: '#666',
+  title: {
     color: '#fff',
-    textDecorationLine: 'line-through',
-    textDecorationStyle: 'solid',
-  },
-  pending: {
-    backgroundColor: '#ffde03',
-    color: '#000',
+    fontSize: 20,
   },
 })
 

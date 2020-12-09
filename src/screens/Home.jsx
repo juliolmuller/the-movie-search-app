@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView, StyleSheet, View } from 'react-native'
-import { TextInput } from 'react-native-gesture-handler'
+import { StyleSheet, TextInput, View } from 'react-native'
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
 import { Feather as Icon } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
+import { TO_DETAILS } from '../routes'
 import MovieCard from '../components/MovieCard'
 import tmdb from '../services/tmdb'
 
 const Home = () => {
+  const { navigate } = useNavigation()
   const [searchText, setSearchText] = useState('')
   const [movies, setMovies] = useState([])
 
@@ -28,15 +31,20 @@ const Home = () => {
         <TextInput
           style={styles.searchInput}
           placeholder="Search..."
+          autoCapitalize="none"
           value={searchText}
           onChangeText={setSearchText}
         />
       </View>
-      <ScrollView contentContainerStyle={{ paddingHorizontal: 16, paddingTop: 32 }}>
-        {movies.map((movie) => (
-          <MovieCard key={movie.id} {...movie} />
-        ))}
-      </ScrollView>
+      <FlatList
+        data={movies}
+        keyExtractor={({ id }) => `${id}`}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => navigate(TO_DETAILS, item)}>
+            <MovieCard {...item} />
+          </TouchableOpacity>
+        )}
+      />
     </>
   )
 }
