@@ -1,34 +1,10 @@
-import React from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
-import tmdb from '../services/tmdb'
-
-const MovieCard = ({ backdrop_path, release_date, title, vote_average }) => (
-  <View style={styles.card}>
-    <Image
-      style={styles.thumbnail}
-      source={{ uri: tmdb.thumbURL + backdrop_path }}
-    />
-    <View style={styles.details}>
-      <Text style={styles.year}>
-        {new Date(release_date).getFullYear()}
-      </Text>
-      <Text style={styles.title}>
-        {title}
-      </Text>
-    </View>
-    <View style={styles.evaluation}>
-      <Text style={[styles.rate, styles.scale(vote_average)]}>
-        {vote_average.toFixed(1)}
-      </Text>
-    </View>
-  </View>
-)
+import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
   card: {
     width: '100%',
     flexDirection: 'row',
-    backgroundColor: '#eee',
+    backgroundColor: '#ddd',
     marginVertical: 5,
   },
   thumbnail: {
@@ -40,13 +16,13 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 5,
   },
+  year: {
+    color: '#333',
+  },
   title: {
     color: '#111',
     fontSize: 18,
     fontWeight: 'bold',
-  },
-  year: {
-    color: '#333',
   },
   evaluation: {
     justifyContent: 'center',
@@ -75,4 +51,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default MovieCard
+export default styles

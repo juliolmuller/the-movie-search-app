@@ -27,7 +27,7 @@ module.exports = {
     'import',
   ],
   rules: {
-    'camelcase': ['error', { allow: ['backdrop_path', 'include_adult', 'release_date', 'vote_average'] }],
+    'camelcase': ['error', { allow: ['backdrop_path', 'file_path', 'include_adult', 'release_date', 'vote_average'] }],
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-use-before-define': 'off',
     'object-curly-newline': ['error', { ImportDeclaration: { multiline: true, minProperties: 6 } }],
