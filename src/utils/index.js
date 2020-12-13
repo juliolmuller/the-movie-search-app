@@ -23,7 +23,7 @@ export const withThousandSeparator = (value) => {
  * @returns {string}
  */
 export const dateFormat = (date, style = 'long') => {
-  if (!date instanceof Date) {
+  if (!(date instanceof Date)) {
     return date
   }
 
