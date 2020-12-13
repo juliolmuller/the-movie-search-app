@@ -30,7 +30,7 @@ module.exports = {
     'camelcase': ['error', { allow: ['backdrop_path', 'file_path', 'include_adult', 'release_date', 'vote_average'] }],
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-use-before-define': 'off',
-    'object-curly-newline': ['error', { ImportDeclaration: { multiline: true, minProperties: 6 } }],
+    'object-curly-newline': ['error', { ImportDeclaration: { multiline: true, minProperties: 8 } }],
     'react/jsx-indent-props': ['error', 2],
     'react/jsx-closing-bracket-location': 'error',
     'react/prop-types': 'off',

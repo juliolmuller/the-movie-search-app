@@ -1,12 +1,16 @@
 import React from 'react'
-import { Text, View } from 'react-native'
-import styles from './styles'
+import { Container, VotesAverage, VotesCount } from './styled'
+import { withThousandSeparator } from '../../../utils'
 
 const MovieRating = ({ votesAverage, votesCount }) => (
-  <View style={styles.container}>
-    <Text style={styles.average}>{votesAverage}</Text>
-    <Text style={styles.count}>{votesCount} votes</Text>
-  </View>
+  <Container>
+    <VotesAverage>
+      {Number(votesAverage).toFixed(1)}
+    </VotesAverage>
+    <VotesCount>
+      {withThousandSeparator(votesCount)} votes
+    </VotesCount>
+  </Container>
 )
 
 export default MovieRating

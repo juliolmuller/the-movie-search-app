@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { ScrollView, Text, View } from 'react-native'
+import { Container, Details, Title, TopicTitle, TopicText, PillsWrapper, Pill } from './styled'
 import BackdropsCarousel from './BackdropsCarousel'
 import MovieRating from './MovieRating'
+import { dateFormat, withThousandSeparator } from '../../utils'
 import tmdb from '../../services/tmdb'
-import styles from './styles'
 
 const MovieDetails = ({ route }) => {
   const [movie, setMovie] = useState(route.params)
@@ -27,7 +27,7 @@ const MovieDetails = ({ route }) => {
   }, [route.params.id])
 
   return (
-    <ScrollView style={styles.wrapper}>
+    <Container>
       <BackdropsCarousel
         imagesURI={movie.backdrops
           ? movie.backdrops.map(({ file_path }) => tmdb.thumbURL + file_path)
@@ -35,45 +35,49 @@ const MovieDetails = ({ route }) => {
         }
       />
 
-      <Text style={styles.title}>
-        {movie.title}
-      </Text>
+      <Details>
+        <Title>{movie.title}</Title>
 
-      <View style={styles.details}>
-        {movie.vote_count && (
+        {Boolean(movie.vote_count) && (
           <MovieRating votesAverage={movie.vote_average} votesCount={movie.vote_count} />
         )}
 
-        {movie.overview && <>
-          <Text style={styles.topicTitle}>Synopsis</Text>
-          <Text style={styles.topicText}>{movie.overview}</Text>
+        {Boolean(movie.overview) && <>
+          <TopicTitle>Synopsis</TopicTitle>
+          <TopicText>{movie.overview}</TopicText>
         </>}
 
-        {movie.genres?.length && <>
-          <Text style={styles.topicTitle}>Genres</Text>
-          <View style={styles.genreContainer}>
+        {Boolean(movie.genres?.length) && <>
+          <TopicTitle>Genres</TopicTitle>
+          <PillsWrapper>
             {movie.genres.map((genre) => (
-              <Text key={genre.id} style={styles.genre}>{genre.name}</Text>
+              <Pill key={genre.id}>{genre.name}</Pill>
             ))}
-          </View>
+          </PillsWrapper>
         </>}
 
-        {movie.release_date && <>
-          <Text style={styles.topicTitle}>Release Date</Text>
-          <Text style={styles.topicText}>{movie.release_date}</Text>
+        {Boolean(movie.release_date) && <>
+          <TopicTitle>Release Date</TopicTitle>
+          <TopicText>
+            {dateFormat(new Date(movie.release_date))}
+          </TopicText>
         </>}
 
-        {movie.budget && <>
-          <Text style={styles.topicTitle}>Budget</Text>
-          <Text style={styles.topicText}>{movie.budget}</Text>
+        {Boolean(movie.budget) && <>
+          <TopicTitle>Budget</TopicTitle>
+          <TopicText>
+            ${withThousandSeparator(movie.budget)} USD
+          </TopicText>
         </>}
 
-        {movie.revenue && <>
-          <Text style={styles.topicTitle}>Revenue</Text>
-          <Text style={styles.topicText}>{movie.revenue}</Text>
+        {Boolean(movie.revenue) && <>
+          <TopicTitle>Revenue</TopicTitle>
+          <TopicText>
+            ${withThousandSeparator(movie.revenue)} USD
+          </TopicText>
         </>}
-      </View>
-    </ScrollView>
+      </Details>
+    </Container>
   )
 }
 

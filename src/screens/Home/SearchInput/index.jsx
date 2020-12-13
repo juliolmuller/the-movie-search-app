@@ -1,18 +1,12 @@
 import React from 'react'
-import { TextInput, View } from 'react-native'
 import { Feather as Icon } from '@expo/vector-icons'
-import styles from './styles'
+import { Container, Input } from './styled'
 
 const SearchInput = (props) => (
-  <View style={styles.container}>
+  <Container>
     <Icon name="search" size={24} />
-    <TextInput
-      style={styles.input}
-      placeholder="Search..."
-      autoCapitalize="none"
-      {...props}
-    />
-  </View>
+    <Input placeholder="Search..." autoCapitalize="none" {...props} />
+  </Container>
 )
 
 export default SearchInput

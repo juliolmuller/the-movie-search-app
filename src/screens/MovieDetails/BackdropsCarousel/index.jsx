@@ -1,15 +1,16 @@
 import React from 'react'
-import { Image, ScrollView, View } from 'react-native'
-import styles from './styles'
+import { Carousel, Image } from './styled'
 
 const BackdropsCarousel = ({ imagesURI }) => (
-  <View style={styles.container}>
-    <ScrollView horizontal pagingEnabled>
-      {imagesURI.map((uri) => (
-        <Image key={uri} style={styles.image} source={{ uri }} />
-      ))}
-    </ScrollView>
-  </View>
+  <Carousel
+    horizontal
+    pagingEnabled
+    data={imagesURI}
+    keyExtractor={(uri) => uri}
+    renderItem={({ item: uri }) => (
+      <Image source={{ uri }} />
+    )}
+  />
 )
 
 export default BackdropsCarousel
