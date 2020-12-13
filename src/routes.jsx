@@ -6,14 +6,11 @@ import MovieDetails from './screens/MovieDetails'
 
 const Stack = createStackNavigator()
 
-export const TO_HOME = 'Home'
-export const TO_DETAILS = 'MovieDetails'
-
 const Routes = () => (
   <NavigationContainer>
     <Stack.Navigator>
       <Stack.Screen
-        name={TO_HOME}
+        name="Home"
         component={Home}
         options={{
           title: 'THE MOVIE DATABASE',
@@ -21,7 +18,7 @@ const Routes = () => (
         }}
       />
       <Stack.Screen
-        name={TO_DETAILS}
+        name="MovieDetails"
         component={MovieDetails}
         options={{
           title: 'Detalhes',

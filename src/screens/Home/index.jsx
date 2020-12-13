@@ -3,7 +3,6 @@ import { FlatList, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import SearchInput from './SearchInput'
 import MovieCard from './MovieCard'
-import { TO_DETAILS } from '../../routes'
 import tmdb from '../../services/tmdb'
 
 const Home = () => {
@@ -33,7 +32,7 @@ const Home = () => {
         data={movies}
         keyExtractor={({ id }) => `${id}`}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => navigate(TO_DETAILS, item)}>
+          <TouchableOpacity onPress={() => navigate('MovieDetails', item)}>
             <MovieCard {...item} />
           </TouchableOpacity>
         )}
