@@ -31,3 +31,32 @@ export const dateFormat = (date, style = 'long') => {
 
   return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
 }
+
+/**
+ * Merge arrays into one, keeping the items order
+ *
+ * @param {Array} arrays
+ * @returns {Array}
+ */
+export const mixArrays = (...arrays) => {
+  const result = []
+  let arrayTurn = 0
+  let indexTurn = 0
+  let attempts = 0
+
+  while (attempts < arrays.length) {
+    if (arrays[arrayTurn][indexTurn] !== undefined) {
+      result.push(arrays[arrayTurn][indexTurn])
+      attempts = 0
+    } else {
+      attempts++
+    }
+
+    arrayTurn = (arrayTurn + 1) % arrays.length
+    if (arrayTurn === 0) {
+      indexTurn++
+    }
+  }
+
+  return result
+}

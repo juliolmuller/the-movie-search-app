@@ -1,5 +1,20 @@
 import Styled from 'styled-components/native'
 
+export const BaseCard = Styled.View`
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  background-color: #ddd;
+  margin-bottom: 5px;
+  margin-top: 5px;
+`
+
+export const BaseThumbnail = Styled.Image`
+  resize-mode: cover;
+  height: 75px;
+  width: 100px;
+`
+
 export const RatingBadge = Styled.Text`
   border-radius: 10px;
   margin: 10px;
