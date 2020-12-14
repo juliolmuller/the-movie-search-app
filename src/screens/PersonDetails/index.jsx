@@ -1,79 +1,74 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Details, Title, TopicTitle, TopicText, PillsWrapper, Pill } from './styled'
-import BackdropsCarousel from './BackdropsCarousel'
-import MovieRating from './MovieRating'
-import { dateFormat, withThousandSeparator } from '../../utils'
+import { Container, Details, Title, TopicTitle, TopicText } from './styled'
+import ImagesCarousel from '../components/ImagesCarousel'
+import { dateFormat } from '../../utils'
 import tmdb from '../../services/tmdb'
 
-const MovieDetails = ({ route }) => {
-  const [movie, setMovie] = useState(route.params)
+const PersonDetails = ({ route }) => {
+  const [person, setPerson] = useState({
+    ...route.params,
+    profiles: route.params.profile_path
+      ? [route.params.profile_path]
+      : [],
+  })
 
-  useEffect(() => {
-    const responses = Promise.all([
-      tmdb.get(`/movie/${route.params.id}`),
-      tmdb.get(`/movie/${route.params.id}/images`),
+  const fetchPersonData = async () => {
+    const [profilesResponse, personResponse] = await Promise.all([
+      tmdb.get(`/person/${route.params.id}/images`),
+      tmdb.get(`/person/${route.params.id}`, {
+        params: {
+          language: 'en-US',
+        },
+      }),
     ])
 
-    responses
-      .then(([movieResponse, backdropResponse]) => {
-        const movieData = movieResponse.data
-        const { backdrops } = backdropResponse.data
-        setMovie({ ...movieData, backdrops })
-      })
-      .catch((error) => {
-        console.log(error)
-        alert('ERROR: Unable to connect to server.')
-      })
-  }, [route.params.id])
+    setPerson({
+      ...personResponse.data,
+      profiles: profilesResponse.data.profiles,
+    })
+  }
+
+  useEffect(() => { fetchPersonData() }, [route.params.id])
 
   return (
     <Container>
-      <BackdropsCarousel
-        imagesURI={movie.backdrops
-          ? movie.backdrops.map(({ file_path }) => tmdb.thumbURL + file_path)
-          : [tmdb.thumbURL + movie.backdrop_path]
-        }
-      />
+      {Boolean(person.profiles.length) && (
+        <ImagesCarousel
+          imagesURI={person.profiles.map(
+            ({ file_path }) => tmdb.thumbURL + file_path,
+          )}
+        />
+      )}
 
       <Details>
-        <Title>{movie.title}</Title>
+        <Title>{person.name}</Title>
 
-        {Boolean(movie.vote_count) && (
-          <MovieRating votesAverage={movie.vote_average} votesCount={movie.vote_count} />
-        )}
-
-        {Boolean(movie.overview) && <>
-          <TopicTitle>Synopsis</TopicTitle>
-          <TopicText>{movie.overview}</TopicText>
+        {Boolean(person.biography) && <>
+          <TopicTitle>Biography</TopicTitle>
+          <TopicText>{person.biography}</TopicText>
         </>}
 
-        {Boolean(movie.genres?.length) && <>
-          <TopicTitle>Genres</TopicTitle>
-          <PillsWrapper>
-            {movie.genres.map((genre) => (
-              <Pill key={genre.id}>{genre.name}</Pill>
-            ))}
-          </PillsWrapper>
+        {Boolean(person.known_for_department) && <>
+          <TopicTitle>Known for Department</TopicTitle>
+          <TopicText>{person.known_for_department}</TopicText>
         </>}
 
-        {Boolean(movie.release_date) && <>
-          <TopicTitle>Release Date</TopicTitle>
+        {Boolean(person.place_of_birth) && <>
+          <TopicTitle>Place of Birth</TopicTitle>
+          <TopicText>${person.place_of_birth}</TopicText>
+        </>}
+
+        {Boolean(person.birthday) && <>
+          <TopicTitle>Date of Birth</TopicTitle>
           <TopicText>
-            {dateFormat(new Date(movie.release_date))}
+            {dateFormat(new Date(person.birthday))}
           </TopicText>
         </>}
 
-        {Boolean(movie.budget) && <>
-          <TopicTitle>Budget</TopicTitle>
+        {Boolean(person.deathday) && <>
+          <TopicTitle>Date of Death</TopicTitle>
           <TopicText>
-            ${withThousandSeparator(movie.budget)} USD
-          </TopicText>
-        </>}
-
-        {Boolean(movie.revenue) && <>
-          <TopicTitle>Revenue</TopicTitle>
-          <TopicText>
-            ${withThousandSeparator(movie.revenue)} USD
+            {dateFormat(new Date(person.deathday))}
           </TopicText>
         </>}
       </Details>
@@ -81,4 +76,4 @@ const MovieDetails = ({ route }) => {
   )
 }
 
-export default MovieDetails
+export default PersonDetails
