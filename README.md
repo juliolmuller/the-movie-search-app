@@ -1,30 +1,58 @@
-Tecnologia em Análise e Desenvolvimento de Sistemas
+<h1 align="center">
+  🎬 The Movie Search
+</h1>
 
-Setor de Educação Profissional e Tecnológica - SEPT
+<p align="center">
+  <a href="#trophy-lessons-learned">Lessons Learned</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#rocket-technologies--resources">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#hammer-setting-up-the-environment">Environment Setup</a>
+</p>
 
-Universidade Federal do Paraná - UFPR
+<p align="center">
+  <img src="https://img.shields.io/static/v1?labelColor=000000&color=777777&label=created%20at&message=Nov%202020" alt="Creation Date" />
 
----
+  <img src="https://img.shields.io/github/last-commit/juliolmuller/the-movie-search-app?label=updated%20at&labelColor=000000&color=777777" alt="Update Date" />
 
-*DS151 - Desenvolvimento para Dispositivos Móveis*
+  <img src="https://img.shields.io/github/v/tag/juliolmuller/the-movie-search-app?label=latest%20version&labelColor=000000&color=777777" alt="Latest Version" />
 
-Prof. Alexander Robert Kutzke
+  <img src="https://img.shields.io/static/v1?labelColor=000000&color=777777&label=PRs&message=welcome" alt="Pull Requests Welcome" />
 
-* [Instruções para submissão de tarefas e trabalhos](https://gitlab.tadsufpr.net.br/ds122-alexkutzke/material/blob/master/instrucoes_submissao_tarefas_e_trabalhos.md)
-* [Video aula](https://www.youtube.com/watch?v=d6ZTnQNhoCo)
+  <img src="https://img.shields.io/github/license/juliolmuller/the-movie-search-app?labelColor=000000&color=777777" alt="Project License" />
+</p>
 
-# Atividade The Movie Database 
+![Application snapshot](./src/images/app-overview.png)
 
-Crie uma aplicação com o Expo (já inicializada nesse repositório) e que tenha o React Navigation configurado com navegação do tipo Stack.
+Application developed as an assignment to college, subject Development for Mobile Devices, at UFPR, in order to learn building **React Native** applications. The project seeks to apply knowledge in functional components, components communication (via *props* and *lifting state up*), state management with Hooks, routing with React Navigation and REST API consumption.
 
-A aplicação deve ser capaz de realizar uma busca por nomes de filmes, séries e personalidades a partir da API [The movie DB](https://developers.themoviedb.org/3/getting-started/introduction) (versão 3). Um filtro deve permitir a seleção dos resultados em uma dessas categorias.
+The proposal was to build a simple mobile application to search movies, TV shows and famous people using [The Movie Database](https://developers.themoviedb.org/3/) REST API, and display details about the selected item. A good-looking app may earn extra points 😍.
 
-Além disso, ao selecionar um dos filmes, séries e/ou personalidades buscados, a aplicação deve, em outra tela, apresentar as informações obtidas através da API sobre o registro em questão.
+## :trophy: Lessons Learned
 
-A imagem abaixo tem um exemplo **incompleto** da aplicação:
+- Project configuration using `.env` files;
+- React Native Navigation (stack mode);
+- Loading animation when awaiting asynchronous processing;
+- Images carousel;
+- [Styled Components](https://styled-components.com/);
+- Fetching data from [TMDB](https://developers.themoviedb.org/3/) API;
 
-![Aplicação exemplo](images/exemplo.gif)
+## :rocket: Technologies & Resources
 
-*"Pontos extras para um layout maneiro" still holds.*
+**Frontend:**
+- React Native
+- Expo Framework
+- Styled Components
+- Axios (HTTP client)
 
+**Development:**
+- Visual Studio Code
+- NPM routines
 
+## :hammer: Setting up the Environment
+
+Make sure to have **Node.js 10+** installed in your machine and its **npm** available in the command line, then use the following routines:
+
+```bash
+$ npm install -g expo-cli   # install Expo CLI tool globally
+$ npm install               # download all dependencies
+$ npm start                 # run development server
+```
