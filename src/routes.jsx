@@ -21,7 +21,7 @@ const Routes = () => (
         name="MovieDetails"
         component={MovieDetails}
         options={{
-          title: 'Detalhes',
+          title: 'Details',
           headerTitleAlign: 'center',
         }}
       />
