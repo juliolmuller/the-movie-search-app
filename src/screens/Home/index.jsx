@@ -31,6 +31,7 @@ const Home = () => {
     setLoading(true)
     const params = {
       include_adult: false,
+      language: 'en-US',
       query: searchText,
     }
 
@@ -64,11 +65,11 @@ const Home = () => {
             data={result}
             keyExtractor={({ id }) => `${id}`}
             renderItem={({ item }) => item.backdrop_path !== undefined ? (
-              <TouchableOpacity onPress={() => navigate('MovieDetails', item)}>
+              <TouchableOpacity onPress={() => navigate('ShowDetails', item)}>
                 <ShowCard {...item} />
               </TouchableOpacity>
             ) : (
-              <TouchableOpacity onPress={() => navigate('MovieDetails', item)}>
+              <TouchableOpacity onPress={() => navigate('PersonDetails', item)}>
                 <PersonCard {...item} />
               </TouchableOpacity>
             )}

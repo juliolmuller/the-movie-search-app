@@ -27,7 +27,7 @@ module.exports = {
     'import',
   ],
   rules: {
-    'camelcase': ['error', { allow: ['backdrop_path', 'file_path', 'first_air_date', 'include_adult', 'known_for_department', 'profile_path', 'release_date', 'vote_average'] }],
+    'camelcase': ['error', { allow: ['backdrop_path', 'episode_count', 'file_path', 'first_air_date', 'include_adult', 'known_for_department', 'profile_path', 'release_date', 'vote_average'] }],
     'no-confusing-arrow': 'off',
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-use-before-define': 'off',

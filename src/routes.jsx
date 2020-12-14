@@ -2,7 +2,8 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import Home from './screens/Home'
-import MovieDetails from './screens/MovieDetails'
+import ShowDetails from './screens/ShowDetails'
+import PersonDetails from './screens/PersonDetails'
 
 const Stack = createStackNavigator()
 
@@ -18,8 +19,16 @@ const Routes = () => (
         }}
       />
       <Stack.Screen
-        name="MovieDetails"
-        component={MovieDetails}
+        name="ShowDetails"
+        component={ShowDetails}
+        options={{
+          title: 'Details',
+          headerTitleAlign: 'center',
+        }}
+      />
+      <Stack.Screen
+        name="PersonDetails"
+        component={PersonDetails}
         options={{
           title: 'Details',
           headerTitleAlign: 'center',
