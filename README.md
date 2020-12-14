@@ -49,6 +49,8 @@ The proposal was to build a simple mobile application to search movies, TV shows
 
 ## :hammer: Setting up the Environment
 
+Before starting the development server to see the application running, update the TMDB API key configured in `/.env` file. It is suggested for you to create a copy of that file and rename it as `/.env.local`, so Git will not track your local/private configuration, as the API key should not be shared in public repositories.
+
 Make sure to have **Node.js 10+** installed in your machine and its **npm** available in the command line, then use the following routines:
 
 ```bash
