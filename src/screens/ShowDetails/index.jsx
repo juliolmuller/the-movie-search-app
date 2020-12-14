@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Details, Title, TopicTitle, TopicText, PillsWrapper, Pill } from './styled'
 import BackdropsCarousel from './BackdropsCarousel'
-import MovieRating from './MovieRating'
+import ShowRating from './ShowRating'
 import { dateFormat, withThousandSeparator } from '../../utils'
 import tmdb from '../../services/tmdb'
 
@@ -46,7 +46,7 @@ const ShowDetails = ({ route }) => {
         <Title>{show.name || show.title}</Title>
 
         {Boolean(show.vote_count) && (
-          <MovieRating
+          <ShowRating
             votesAverage={show.vote_average}
             votesCount={show.vote_count}
           />

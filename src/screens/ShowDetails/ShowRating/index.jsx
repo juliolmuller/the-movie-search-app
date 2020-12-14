@@ -2,7 +2,7 @@ import React from 'react'
 import { Container, VotesAverage, VotesCount } from './styled'
 import { withThousandSeparator } from '../../../utils'
 
-const MovieRating = ({ votesAverage, votesCount }) => (
+const ShowRating = ({ votesAverage, votesCount }) => (
   <Container>
     <VotesAverage>
       {Number(votesAverage).toFixed(1)}
@@ -13,4 +13,4 @@ const MovieRating = ({ votesAverage, votesCount }) => (
   </Container>
 )
 
-export default MovieRating
+export default ShowRating
