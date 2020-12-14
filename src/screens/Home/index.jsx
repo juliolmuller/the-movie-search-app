@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { FlatList, View, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
+import LoadingAnimation from '../components/LoadingAnimation'
 import SearchInput from './SearchInput'
 import FilterPill from './FilterPill'
 import ShowCard from './ShowCard'
@@ -10,6 +11,7 @@ import { mixArrays } from '../../utils'
 
 const Home = () => {
   const { navigate } = useNavigation()
+  const [isLoading, setLoading] = useState(false)
   const [searchText, setSearchText] = useState('')
   const [tvShows, setTvShows] = useState([])
   const [movies, setMovies] = useState([])
@@ -26,14 +28,17 @@ const Home = () => {
   )
 
   const handleSearch = () => {
+    setLoading(true)
     const params = {
       include_adult: false,
       query: searchText,
     }
 
-    tmdb.get('/search/tv', { params }).then((response) => setTvShows(response.data.results))
-    tmdb.get('/search/movie', { params }).then((response) => setMovies(response.data.results))
-    tmdb.get('/search/person', { params }).then((response) => setPeople(response.data.results))
+    Promise.all([
+      tmdb.get('/search/tv', { params }).then((response) => setTvShows(response.data.results)),
+      tmdb.get('/search/movie', { params }).then((response) => setMovies(response.data.results)),
+      tmdb.get('/search/person', { params }).then((response) => setPeople(response.data.results)),
+    ]).then(() => setLoading(false))
   }
 
   return (
@@ -43,7 +48,7 @@ const Home = () => {
         onChangeText={setSearchText}
         onSubmitEditing={() => searchText && handleSearch()}
       />
-      <View>
+      <View style={{ flexGrow: 1 }}>
         <FlatList
           horizontal
           data={filters}
@@ -52,19 +57,23 @@ const Home = () => {
             <FilterPill state={item} />
           )}
         />
-        <FlatList
-          data={result}
-          keyExtractor={({ id }) => `${id}`}
-          renderItem={({ item }) => item.backdrop_path !== undefined ? (
-            <TouchableOpacity onPress={() => navigate('MovieDetails', item)}>
-              <ShowCard {...item} />
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity onPress={() => navigate('MovieDetails', item)}>
-              <PersonCard {...item} />
-            </TouchableOpacity>
-          )}
-        />
+        {isLoading ? (
+          <LoadingAnimation />
+        ) : (
+          <FlatList
+            data={result}
+            keyExtractor={({ id }) => `${id}`}
+            renderItem={({ item }) => item.backdrop_path !== undefined ? (
+              <TouchableOpacity onPress={() => navigate('MovieDetails', item)}>
+                <ShowCard {...item} />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity onPress={() => navigate('MovieDetails', item)}>
+                <PersonCard {...item} />
+              </TouchableOpacity>
+            )}
+          />
+        )}
       </View>
     </>
   )
