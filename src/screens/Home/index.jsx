@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { FlatList, TouchableOpacity } from 'react-native'
+import { FlatList, View, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import SearchInput from './SearchInput'
+import FilterPill from './FilterPill'
 import ShowCard from './ShowCard'
 import PersonCard from './PersonCard'
 import tmdb from '../../services/tmdb'
@@ -13,7 +14,16 @@ const Home = () => {
   const [tvShows, setTvShows] = useState([])
   const [movies, setMovies] = useState([])
   const [people, setPeople] = useState([])
-  const allResults = mixArrays(tvShows, movies, people)
+  const filters = [
+    useState({ label: 'TV Shows', enabled: true }),
+    useState({ label: 'Movies', enabled: true }),
+    useState({ label: 'People', enabled: true }),
+  ]
+  const result = mixArrays(
+    filters[0][0].enabled ? tvShows : [],
+    filters[1][0].enabled ? movies : [],
+    filters[2][0].enabled ? people : [],
+  )
 
   const handleSearch = () => {
     const params = {
@@ -33,19 +43,29 @@ const Home = () => {
         onChangeText={setSearchText}
         onSubmitEditing={() => searchText && handleSearch()}
       />
-      <FlatList
-        data={allResults}
-        keyExtractor={({ id }) => `${id}`}
-        renderItem={({ item }) => item.backdrop_path !== undefined ? (
-          <TouchableOpacity onPress={() => navigate('MovieDetails', item)}>
-            <ShowCard {...item} />
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity onPress={() => navigate('MovieDetails', item)}>
-            <PersonCard {...item} />
-          </TouchableOpacity>
-        )}
-      />
+      <View>
+        <FlatList
+          horizontal
+          data={filters}
+          keyExtractor={(_, index) => `${index}`}
+          renderItem={({ item }) => (
+            <FilterPill state={item} />
+          )}
+        />
+        <FlatList
+          data={result}
+          keyExtractor={({ id }) => `${id}`}
+          renderItem={({ item }) => item.backdrop_path !== undefined ? (
+            <TouchableOpacity onPress={() => navigate('MovieDetails', item)}>
+              <ShowCard {...item} />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity onPress={() => navigate('MovieDetails', item)}>
+              <PersonCard {...item} />
+            </TouchableOpacity>
+          )}
+        />
+      </View>
     </>
   )
 }
