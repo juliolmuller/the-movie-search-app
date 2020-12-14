@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Details, Title, TopicTitle, TopicText, PillsWrapper, Pill } from './styled'
-import BackdropsCarousel from './BackdropsCarousel'
+import ImagesCarousel from '../components/ImagesCarousel'
 import ShowRating from './ShowRating'
 import { dateFormat, withThousandSeparator } from '../../utils'
 import tmdb from '../../services/tmdb'
@@ -35,7 +35,7 @@ const ShowDetails = ({ route }) => {
   return (
     <Container>
       {Boolean(show.backdrops.length) && (
-        <BackdropsCarousel
+        <ImagesCarousel
           imagesURI={show.backdrops.map(
             ({ file_path }) => tmdb.thumbURL + file_path,
           )}

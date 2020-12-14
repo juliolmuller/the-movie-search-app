@@ -39,3 +39,45 @@ export const RatingBadge = Styled.Text`
     return '#f00'
   }};
 `
+
+export const DetailsContainer = Styled.ScrollView`
+  flex: 1;
+`
+
+export const AdditionalDetails = Styled.View`
+  padding: 12px 12px 36px;
+`
+
+export const DetailsTitle = Styled.Text`
+  margin-top: 1px;
+  text-align: center;
+  font-size: 30px;
+`
+
+export const DetailsTopic = Styled.Text`
+  margin-top: 20px;
+  margin-bottom: 10px;
+  border-bottom-color: #aaa;
+  border-bottom-width: 1px;
+  font-style: italic;
+  font-size: 18px;
+`
+
+export const DetailsText = Styled.Text`
+  line-height: 20px;
+  font-size: 14px;
+`
+
+export const GenrePillsWrapper = Styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+`
+
+export const GenrePill = Styled.Text`
+  margin: 0 4px 10px;
+  padding: 6px 10px;
+  background-color: #ddd;
+  border-radius: 14px;
+  font-size: 14px;
+  color: darkblue;
+`

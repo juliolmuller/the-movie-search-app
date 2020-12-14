@@ -1,7 +1,7 @@
 import React from 'react'
 import { Carousel, Image } from './styled'
 
-const BackdropsCarousel = ({ imagesURI }) => (
+const ImagesCarousel = ({ imagesURI }) => (
   <Carousel
     horizontal
     pagingEnabled
@@ -13,4 +13,4 @@ const BackdropsCarousel = ({ imagesURI }) => (
   />
 )
 
-export default BackdropsCarousel
+export default ImagesCarousel
