@@ -1,13 +1,15 @@
-/* eslint-disable no-undef */
-
+/* eslint-env node */
 module.exports = {
   root: true,
   env: {
-    es6: true,
+    'es6': true,
+    'react-native/react-native': true,
   },
   extends: [
     'plugin:react/recommended',
-    '@lacussoft/standard',
+    'plugin:react-native/all',
+    'plugin:jsx-control-statements/recommended',
+    '@lacussoft',
   ],
   globals: {
     alert: true,
@@ -22,9 +24,11 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: [
-    'react',
-    'jsx-a11y',
     'import',
+    'react',
+    'react-hooks',
+    'react-native',
+    'jsx-control-statements',
   ],
   rules: {
     'camelcase': ['error', { allow: ['backdrop_path', 'episode_count', 'file_path', 'first_air_date', 'include_adult', 'known_for_department', 'place_of_birth', 'profile_path', 'release_date', 'vote_average'] }],
