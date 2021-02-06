@@ -36,6 +36,7 @@ export const RatingBadge = Styled.Text`
     if (rating >= 2.5) {
       return '#c25f21'
     }
+
     return '#f00'
   }};
 `

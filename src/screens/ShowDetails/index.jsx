@@ -5,7 +5,7 @@ import ShowRating from './ShowRating'
 import { dateFormat, withThousandSeparator } from '../../utils'
 import tmdb from '../../services/tmdb'
 
-const ShowDetails = ({ route }) => {
+function ShowDetails({ route }) {
   const [show, setShow] = useState({
     ...route.params,
     backdrops: route.params.backdrop_path
@@ -13,7 +13,7 @@ const ShowDetails = ({ route }) => {
       : [],
   })
 
-  const fetchShowData = async () => {
+  async function fetchShowData() {
     const endpoint = route.params.title ? 'movie' : 'tv'
     const [backdropsResponse, showResponse] = await Promise.all([
       tmdb.get(`/${endpoint}/${route.params.id}/images`),
@@ -34,75 +34,75 @@ const ShowDetails = ({ route }) => {
 
   return (
     <Container>
-      {Boolean(show.backdrops.length) && (
+      <If condition={show.backdrops.length}>
         <ImagesCarousel
           imagesURI={show.backdrops.map(
             ({ file_path }) => tmdb.thumbURL + file_path,
           )}
         />
-      )}
+      </If>
 
       <Details>
         <Title>{show.name || show.title}</Title>
 
-        {Boolean(show.vote_count) && (
+        <If condition={show.vote_count}>
           <ShowRating
             votesAverage={show.vote_average}
             votesCount={show.vote_count}
           />
-        )}
+        </If>
 
-        {Boolean(show.overview) && <>
+        <If condition={show.overview}>
           <TopicTitle>Synopsis</TopicTitle>
           <TopicText>{show.overview}</TopicText>
-        </>}
+        </If>
 
-        {Boolean(show.genres?.length) && <>
+        <If condition={show.genres?.length}>
           <TopicTitle>Genres</TopicTitle>
           <PillsWrapper>
             {show.genres.map((genre) => (
               <Pill key={genre.id}>{genre.name}</Pill>
             ))}
           </PillsWrapper>
-        </>}
+        </If>
 
-        {Boolean(show.first_air_date && show.last_air_date) && <>
+        <If condition={show.first_air_date && show.last_air_date}>
           <TopicTitle>Air Dates</TopicTitle>
           <TopicText>
             {dateFormat(new Date(show.first_air_date))}
             - {dateFormat(new Date(show.last_air_date))}
           </TopicText>
-        </>}
+        </If>
 
-        {Boolean(show.seasons?.length) && <>
+        <If condition={show.seasons?.length}>
           <TopicTitle>Seasons</TopicTitle>
           {show.seasons.map((season) => (
             <TopicText key={season.id}>
               {season.name} ({season.episode_count} episodes)
             </TopicText>
           ))}
-        </>}
+        </If>
 
-        {Boolean(show.release_date) && <>
+        <If condition={show.release_date}>
           <TopicTitle>Release Date</TopicTitle>
           <TopicText>
             {dateFormat(new Date(show.release_date))}
           </TopicText>
-        </>}
+        </If>
 
-        {Boolean(show.budget) && <>
+        <If condition={show.budget}>
           <TopicTitle>Budget</TopicTitle>
           <TopicText>
             ${withThousandSeparator(show.budget)} USD
           </TopicText>
-        </>}
+        </If>
 
-        {Boolean(show.revenue) && <>
+        <If condition={show.revenue}>
           <TopicTitle>Revenue</TopicTitle>
           <TopicText>
             ${withThousandSeparator(show.revenue)} USD
           </TopicText>
-        </>}
+        </If>
       </Details>
     </Container>
   )

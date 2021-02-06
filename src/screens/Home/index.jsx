@@ -9,7 +9,7 @@ import PersonCard from './PersonCard'
 import tmdb from '../../services/tmdb'
 import { mixArrays } from '../../utils'
 
-const Home = () => {
+function Home() {
   const { navigate } = useNavigation()
   const [isLoading, setLoading] = useState(false)
   const [searchText, setSearchText] = useState('')
@@ -27,7 +27,7 @@ const Home = () => {
     filters[2][0].enabled ? people : [],
   )
 
-  const handleSearch = () => {
+  function handleSearch() {
     setLoading(true)
     const params = {
       include_adult: false,
@@ -58,23 +58,31 @@ const Home = () => {
             <FilterPill state={item} />
           )}
         />
-        {isLoading ? (
+
+        <If condition={isLoading}>
           <LoadingAnimation />
-        ) : (
+        </If>
+
+        <If condition={!isLoading}>
           <FlatList
             data={result}
             keyExtractor={({ id }) => `${id}`}
-            renderItem={({ item }) => item.backdrop_path !== undefined ? (
-              <TouchableOpacity onPress={() => navigate('ShowDetails', item)}>
-                <ShowCard {...item} />
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity onPress={() => navigate('PersonDetails', item)}>
-                <PersonCard {...item} />
-              </TouchableOpacity>
+            renderItem={({ item }) => (
+              <Choose>
+                <When condition={item.backdrop_path !== undefined}>
+                  <TouchableOpacity onPress={() => navigate('ShowDetails', item)}>
+                    <ShowCard {...item} />
+                  </TouchableOpacity>
+                </When>
+                <Otherwise>
+                  <TouchableOpacity onPress={() => navigate('PersonDetails', item)}>
+                    <PersonCard {...item} />
+                  </TouchableOpacity>
+                </Otherwise>
+              </Choose>
             )}
           />
-        )}
+        </If>
       </View>
     </>
   )

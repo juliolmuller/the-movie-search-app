@@ -1,9 +1,9 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import Home from './screens/Home'
-import ShowDetails from './screens/ShowDetails'
 import PersonDetails from './screens/PersonDetails'
+import ShowDetails from './screens/ShowDetails'
+import Home from './screens/Home'
 
 const Stack = createStackNavigator()
 

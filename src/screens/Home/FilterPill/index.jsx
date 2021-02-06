@@ -1,10 +1,10 @@
 import React from 'react'
 import { Pill } from './styled'
 
-const FilterPill = ({ state }) => {
+function FilterPill({ state }) {
   const [filter, setFilter] = state
 
-  const handlePress = () => {
+  function handlePress() {
     setFilter((prev) => ({
       ...prev,
       enabled: !prev.enabled,

@@ -5,7 +5,7 @@
  * @param {number|string} value
  * @returns {string}
  */
-export const withThousandSeparator = (value) => {
+export function withThousandSeparator(value) {
   const number = Number(value)
 
   if (isNaN(number)) {
@@ -19,10 +19,9 @@ export const withThousandSeparator = (value) => {
  * Formats a given date using Intl.DateTimeFormat API
  *
  * @param {Date} date
- * @param {string} [style]
  * @returns {string}
  */
-export const dateFormat = (date, style = 'long') => {
+export function dateFormat(date) {
   if (!(date instanceof Date)) {
     return date
   }
@@ -38,7 +37,7 @@ export const dateFormat = (date, style = 'long') => {
  * @param {Array} arrays
  * @returns {Array}
  */
-export const mixArrays = (...arrays) => {
+export function mixArrays(...arrays) {
   const result = []
   let arrayTurn = 0
   let indexTurn = 0

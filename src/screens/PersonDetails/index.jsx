@@ -4,7 +4,7 @@ import ImagesCarousel from '../components/ImagesCarousel'
 import { dateFormat } from '../../utils'
 import tmdb from '../../services/tmdb'
 
-const PersonDetails = ({ route }) => {
+function PersonDetails({ route }) {
   const [person, setPerson] = useState({
     ...route.params,
     profiles: route.params.profile_path
@@ -12,7 +12,7 @@ const PersonDetails = ({ route }) => {
       : [],
   })
 
-  const fetchPersonData = async () => {
+  async function fetchPersonData() {
     const [profilesResponse, personResponse] = await Promise.all([
       tmdb.get(`/person/${route.params.id}/images`),
       tmdb.get(`/person/${route.params.id}`, {
@@ -32,45 +32,45 @@ const PersonDetails = ({ route }) => {
 
   return (
     <Container>
-      {Boolean(person.profiles.length) && (
+      <If condition={person.profiles.length}>
         <ImagesCarousel
           imagesURI={person.profiles.map(
             ({ file_path }) => tmdb.thumbURL + file_path,
           )}
         />
-      )}
+      </If>
 
       <Details>
         <Title>{person.name}</Title>
 
-        {Boolean(person.biography) && <>
+        <If condition={person.biography}>
           <TopicTitle>Biography</TopicTitle>
           <TopicText>{person.biography}</TopicText>
-        </>}
+        </If>
 
-        {Boolean(person.known_for_department) && <>
+        <If condition={person.known_for_department}>
           <TopicTitle>Known for Department</TopicTitle>
           <TopicText>{person.known_for_department}</TopicText>
-        </>}
+        </If>
 
-        {Boolean(person.place_of_birth) && <>
+        <If condition={person.place_of_birth}>
           <TopicTitle>Place of Birth</TopicTitle>
           <TopicText>${person.place_of_birth}</TopicText>
-        </>}
+        </If>
 
-        {Boolean(person.birthday) && <>
+        <If condition={person.birthday}>
           <TopicTitle>Date of Birth</TopicTitle>
           <TopicText>
             {dateFormat(new Date(person.birthday))}
           </TopicText>
-        </>}
+        </If>
 
-        {Boolean(person.deathday) && <>
+        <If condition={person.deathday}>
           <TopicTitle>Date of Death</TopicTitle>
           <TopicText>
             {dateFormat(new Date(person.deathday))}
           </TopicText>
-        </>}
+        </If>
       </Details>
     </Container>
   )
