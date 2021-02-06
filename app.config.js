@@ -1,6 +1,8 @@
-import dotenv from 'dotenv-flow'
+/* eslint-env node */
+import dotenv from 'dotenv'
+import project from './package.json'
 
-const config = dotenv.config({ purge_dotenv: true })
+const config = dotenv.config()
 
 if (config.error) {
   throw config.error
@@ -9,13 +11,17 @@ if (config.error) {
 export default {
   expo: {
     name: 'The Movie Search',
-    version: '1.0.0',
+    slug: project.name,
+    version: project.version,
     orientation: 'portrait',
     icon: './src/images/icon.png',
     splash: {
       backgroundColor: '#ffffff',
       image: './src/images/splash.png',
       resizeMode: 'cover',
+    },
+    extra: {
+      ...process.env,
     },
     updates: {
       fallbackToCacheTimeout: 0,
@@ -25,7 +31,7 @@ export default {
     ],
     android: {
       adaptiveIcon: {
-        foregroundImage: './src/images/adaptive-icon.png',
+        foregroundImage: './src/images/icon.png',
         backgroundColor: '#ffffff',
       },
     },
@@ -33,8 +39,7 @@ export default {
       supportsTablet: true,
     },
     web: {
-      favicon: './src/images/favicon.png',
+      favicon: './src/images/icon.png',
     },
-    extra: { ...process.env },
   },
 }
